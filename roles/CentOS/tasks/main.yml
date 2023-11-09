@@ -1,0 +1,27 @@
+  - name: Install firewalld package
+    ansible.builtin.yum:
+      name: firewalld
+      state: present
+
+  - name: Enable firewalld service
+    ansible.builtin.service:
+      name: firewalld
+      state: started
+      enabled: yes
+
+  - name: Set up firewall rules
+    ansible.builtin.firewalld:
+      zone: public
+      service: ssh
+      immediate: yes
+      permanent: yes
+      state: enabled
+
+  - block:
+      - name: Verifying the firewall on CentOS.
+        shell: systemctl status sshd
+        register: Set_Firewall
+
+  - debug:
+      msg="{{ Set_Firewall }}"
+

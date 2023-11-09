@@ -1,0 +1,14 @@
+---
+
+- hosts: all
+  become: true
+
+- hosts: CentOS
+  become: true
+  roles:
+    - CentOS
+
+- hosts: Ubuntu
+  become: true
+  roles:
+    - Ubuntu
